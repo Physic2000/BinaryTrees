@@ -528,9 +528,9 @@ NodeOfTree* DeleteNodeFromAVL_BinarySearchTree( NodeOfTree* p, int k )
 		}
 		NodeOfTree* min = FindMinInBinarySearchTree( r );
 		min->rightNode = DeleteMinInAVL_BinarySearchTree( r );
+		min->rightNode->parentNode = min;
 		min->leftNode = q;
 		q->parentNode = min;
-		r->parentNode = min;
 		NodeOfTree* res;
 		res = BalanceNodeInAVL_BinarySearchTree( min );
 		if( deletedNodeWasTheRoot )

@@ -501,56 +501,12 @@ int main(int argc, char **argv)
 		<< "IsItIdealBalancedTree( myAVL_Tree )  =  " << IsItIdealBalancedTree( myAVL_Tree ) << endl
 		<< "IsItBinarySearchTree( myAVL_Tree )  =  " << IsItBinarySearchTree( myAVL_Tree ) << endl << endl;
 
-	int k = 5;
-    myAVL_Tree = DeleteNodeFromAVL_BinarySearchTree( myAVL_Tree, k );
-    cout << "Вывод дерева после удаления узла с ключом " << k << ": \n";
-    cout << endl << "===Dump2===" << endl;
-    Dump2( myAVL_Tree );
-	cout << endl;
-	assert( !CheckParentalLinks( myAVL_Tree ) );
-	
-	k = 12;
-	myAVL_Tree = DeleteNodeFromAVL_BinarySearchTree( myAVL_Tree, k );	// Можно и без оператора присваивания, т.е. просто DeleteNodeFromAVL_BinarySearchTree( myAVL_Tree, k );
-	//DeleteNodeFromAVL_BinarySearchTree( myAVL_Tree, k );
-    cout << "Вывод дерева после удаления узла с ключом " << k << ", которого нет на дереве (дерево не изменяется): \n";
-    cout << endl << "===Dump2===" << endl;
-    Dump2( myAVL_Tree );
-	cout << endl;
-	assert( !CheckParentalLinks( myAVL_Tree ) );
-	
-	myAVL_Tree = InsertNodeToAVL_BinarySearchTree( myAVL_Tree, 12 );
-	assert( !CheckParentalLinks( myAVL_Tree ) );
-	myAVL_Tree = InsertNodeToAVL_BinarySearchTree( myAVL_Tree, 14 );	// Можно и без оператора присваивания, т.е. просто InsertNodeToAVL_BinarySearchTree( myAVL_Tree, 14 );
-	//InsertNodeToAVL_BinarySearchTree( myAVL_Tree, 14 );
-	assert( !CheckParentalLinks( myAVL_Tree ) );
-	cout << "Вывод дерева после добавления двух узлов с ключами 12 и 14: \n";
-    cout << endl << "===Dump2===" << endl;
-    Dump2( myAVL_Tree );
-	cout << endl;
-
-	k = 8;
-	myAVL_Tree = DeleteNodeFromAVL_BinarySearchTree( myAVL_Tree, k );
-    cout << "Вывод дерева после удаления узла с ключом " << k << ": \n";
-    cout << endl << "===Dump2===" << endl;
-    Dump2( myAVL_Tree );
-	cout << endl;
-	assert( !CheckParentalLinks( myAVL_Tree ) );
-
-	k = 4;
-	myAVL_Tree = DeleteNodeFromAVL_BinarySearchTree( myAVL_Tree, k );	// Раньше возникала ошибка при попытке удалить корень АВЛ дерева бинарного поиска. У нового корня поле parentNode оказывалось НЕ равным nullptr, а должно было.
-    cout << "Вывод дерева после удаления узла с ключом " << k << ": \n";
-    cout << endl << "===Dump2===" << endl;
-    Dump2( myAVL_Tree );
-	cout << endl;
-	assert( !CheckParentalLinks( myAVL_Tree ) );	// Раньше возникало зависание из за того, что у корня дерева myAVL_Tree поле parentNode оказывалось не равным nullptr. В результате во время подъёма к текущему корню, программа выходила за границы дерева.
-
 	cout << "Address of myAVL_Tree:  " << myAVL_Tree << endl;		// Вывод адреса корня дерева myAVL_Tree.
 	FreeMem( myAVL_Tree );											// Удаление дерева и освобождение, выделенной под него памяти.
 	cout << "Address of myAVL_Tree:  " << myAVL_Tree << endl;		// Вывод адреса корня дерева после его удаления.
 
 	cout << endl << "============================================================================" << endl;
-	cout << "Демонстрация формирования АВЛ дерева бинарного поиска из абстрактного бинарного дерева с помощью функции BuildAVL_BinarySearchTreeFrom(...) и "
-		<< "тест функции FindKeyInBinarySearchTree(...)" << endl;
+	cout << "Демонстрация формирования АВЛ дерева бинарного поиска из абстрактного бинарного дерева с помощью функции BuildAVL_BinarySearchTreeFrom(...):" << endl;
 	assert( myTree != NULL );
 	myAVL_Tree = BuildAVL_BinarySearchTreeFrom( myTree );
 	cout << "===Dump2===" << endl;
@@ -569,8 +525,10 @@ int main(int argc, char **argv)
 		<< "numOfNodes  =  " << numOfNodes << endl
 		<< "IsItAVL_Tree( myAVL_Tree )  =  " << IsItAVL_Tree( myAVL_Tree ) << endl
 		<< "IsItIdealBalancedTree( myAVL_Tree )  =  " << IsItIdealBalancedTree( myAVL_Tree ) << endl
-		<< "IsItBinarySearchTree( myAVL_Tree )  =  " << IsItBinarySearchTree( myAVL_Tree ) << endl << endl;
+		<< "IsItBinarySearchTree( myAVL_Tree )  =  " << IsItBinarySearchTree( myAVL_Tree ) << endl;
 
+	cout << endl << "============================================================================" << endl;
+	cout << "Демонстрация работы специальных функций предназначенных для АВЛ дерева бинарного поиска." << endl;
 	cout << "Тест функции FindKeyInBinarySearchTree(...):" << endl;
 	for( wantedKey = 0; wantedKey <= 10; wantedKey++ )
 	{
@@ -578,13 +536,60 @@ int main(int argc, char **argv)
 		assert( searchedNode == nullptr || searchedNode->key == wantedKey );
 		if( searchedNode ) cout << "searchedNode->key  =  " << searchedNode->key << endl;
 	}
-	cout << "Все существующие ключи на дереве найдены!" << endl;
+	cout << "Все существующие ключи на дереве найдены!" << endl << endl;
+
+	int k = 5;
+    myAVL_Tree = DeleteNodeFromAVL_BinarySearchTree( myAVL_Tree, k );
+    cout << "Вывод дерева после удаления узла с ключом " << k << ": \n";
+    cout << endl << "===Dump2===" << endl;
+    Dump2( myAVL_Tree );
+	assert( !CheckParentalLinks( myAVL_Tree ) );
+	cout << "IsItAVL_Tree( myAVL_Tree )  =  " << IsItAVL_Tree( myAVL_Tree ) << endl
+		<< "IsItBinarySearchTree( myAVL_Tree )  =  " << IsItBinarySearchTree( myAVL_Tree ) << endl << endl;
+	
+	k = 12;
+	myAVL_Tree = DeleteNodeFromAVL_BinarySearchTree( myAVL_Tree, k );	// Можно и без оператора присваивания, т.е. просто DeleteNodeFromAVL_BinarySearchTree( myAVL_Tree, k );
+	//DeleteNodeFromAVL_BinarySearchTree( myAVL_Tree, k );
+    cout << "Вывод дерева после удаления узла с ключом " << k << ", которого нет на дереве (дерево не изменяется): \n";
+    cout << endl << "===Dump2===" << endl;
+    Dump2( myAVL_Tree );
+	assert( !CheckParentalLinks( myAVL_Tree ) );
+	cout << endl;
+	
+	myAVL_Tree = InsertNodeToAVL_BinarySearchTree( myAVL_Tree, 12 );
+	assert( !CheckParentalLinks( myAVL_Tree ) );
+	myAVL_Tree = InsertNodeToAVL_BinarySearchTree( myAVL_Tree, 14 );	// Можно и без оператора присваивания, т.е. просто InsertNodeToAVL_BinarySearchTree( myAVL_Tree, 14 );
+	//InsertNodeToAVL_BinarySearchTree( myAVL_Tree, 14 );
+	assert( !CheckParentalLinks( myAVL_Tree ) );
+	cout << "Вывод дерева после добавления двух узлов с ключами 12 и 14: \n";
+    cout << endl << "===Dump2===" << endl;
+    Dump2( myAVL_Tree );
+	cout << "IsItAVL_Tree( myAVL_Tree )  =  " << IsItAVL_Tree( myAVL_Tree ) << endl
+		<< "IsItBinarySearchTree( myAVL_Tree )  =  " << IsItBinarySearchTree( myAVL_Tree ) << endl << endl;
+
+	k = 8;
+	myAVL_Tree = DeleteNodeFromAVL_BinarySearchTree( myAVL_Tree, k );
+    cout << "Вывод дерева после удаления узла с ключом " << k << ": \n";
+    cout << endl << "===Dump2===" << endl;
+    Dump2( myAVL_Tree );
+	assert( !CheckParentalLinks( myAVL_Tree ) );
+	cout << "IsItAVL_Tree( myAVL_Tree )  =  " << IsItAVL_Tree( myAVL_Tree ) << endl
+		<< "IsItBinarySearchTree( myAVL_Tree )  =  " << IsItBinarySearchTree( myAVL_Tree ) << endl << endl;
+
+	k = 4;
+	myAVL_Tree = DeleteNodeFromAVL_BinarySearchTree( myAVL_Tree, k );	// Раньше возникала ошибка при попытке удалить корень АВЛ дерева бинарного поиска. У нового корня поле parentNode оказывалось НЕ равным nullptr, а должно было.
+    cout << "Вывод дерева после удаления узла с ключом " << k << ": \n";
+    cout << endl << "===Dump2===" << endl;
+    Dump2( myAVL_Tree );
+	assert( !CheckParentalLinks( myAVL_Tree ) );	// Раньше возникало зависание из за того, что у корня дерева myAVL_Tree поле parentNode оказывалось не равным nullptr. В результате во время подъёма к текущему корню, программа выходила за границы дерева.
+	cout << "IsItAVL_Tree( myAVL_Tree )  =  " << IsItAVL_Tree( myAVL_Tree ) << endl
+		<< "IsItBinarySearchTree( myAVL_Tree )  =  " << IsItBinarySearchTree( myAVL_Tree ) << endl << endl;
 
 	cout << endl
 		<< "Address of myAVL_Tree:  " << myAVL_Tree << endl;		// Вывод адреса корня дерева myAVL_Tree.
 	FreeMem( myAVL_Tree );											// Удаление дерева и освобождение, выделенной под него памяти.
 	cout << "Address of myAVL_Tree:  " << myAVL_Tree << endl;		// Вывод адреса корня дерева после его удаления.
-	
+
 	cout << endl << "============================================================================" << endl;
 	cout << "Демонстрация формирования идеально сбалансированного дерева из массива с помощью функции BuildIdealBalancedTreeFrom(...):" << endl;
 	//SortArrayAscending<int>( arrayOfInt, len );
