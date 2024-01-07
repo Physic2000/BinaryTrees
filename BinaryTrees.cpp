@@ -537,6 +537,7 @@ NodeOfTree* DeleteNodeFromAVL_BinarySearchTree( NodeOfTree* p, int k )
 			res->parentNode = nullptr;
 		return res;
 	}
+	CalculatingHeight( p );		// Обновить высоту возвращаемого узла.
 	return BalanceNodeInAVL_BinarySearchTree( p );
 }
 
