@@ -576,7 +576,16 @@ int main(int argc, char **argv)
 	cout << "IsItAVL_Tree( myAVL_Tree )  =  " << IsItAVL_Tree( myAVL_Tree ) << endl
 		<< "IsItBinarySearchTree( myAVL_Tree )  =  " << IsItBinarySearchTree( myAVL_Tree ) << endl << endl;
 
-	k = 4;
+	k = 7;
+	myAVL_Tree = DeleteNodeFromAVL_BinarySearchTree( myAVL_Tree, k );	// Раньше возникала ошибка при попытке удалить корень АВЛ дерева бинарного поиска. У нового корня поле parentNode оказывалось НЕ равным nullptr, а должно было.
+    cout << "Вывод дерева после удаления узла с ключом " << k << ": \n";
+    cout << endl << "===Dump2===" << endl;
+    Dump2( myAVL_Tree );
+	assert( !CheckParentalLinks( myAVL_Tree ) );	// Раньше возникало зависание из за того, что у корня дерева myAVL_Tree поле parentNode оказывалось не равным nullptr. В результате во время подъёма к текущему корню, программа выходила за границы дерева.
+	cout << "IsItAVL_Tree( myAVL_Tree )  =  " << IsItAVL_Tree( myAVL_Tree ) << endl
+		<< "IsItBinarySearchTree( myAVL_Tree )  =  " << IsItBinarySearchTree( myAVL_Tree ) << endl << endl;
+
+	k = 6;
 	myAVL_Tree = DeleteNodeFromAVL_BinarySearchTree( myAVL_Tree, k );	// Раньше возникала ошибка при попытке удалить корень АВЛ дерева бинарного поиска. У нового корня поле parentNode оказывалось НЕ равным nullptr, а должно было.
     cout << "Вывод дерева после удаления узла с ключом " << k << ": \n";
     cout << endl << "===Dump2===" << endl;

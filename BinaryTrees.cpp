@@ -456,7 +456,7 @@ NodeOfTree* RotateLeft( NodeOfTree* q )
 // Балансировка узла p в АВЛ дереве бинарного поиска.
 NodeOfTree* BalanceNodeInAVL_BinarySearchTree( NodeOfTree* p )
 {
-	//CalculatingHeight( p );
+	CalculatingHeight( p );
 	if( BalanceFactor( p ) == 2 )
 	{
 		if( BalanceFactor( p->rightNode ) < 0 )
@@ -537,6 +537,7 @@ NodeOfTree* DeleteNodeFromAVL_BinarySearchTree( NodeOfTree* p, int k )
 			res->parentNode = nullptr;
 		return res;
 	}
+//	CalculatingHeight( p );		// Обновить высоту возвращаемого узла.
 	return BalanceNodeInAVL_BinarySearchTree( p );
 }
 
@@ -557,7 +558,7 @@ NodeOfTree* InsertNodeToAVL_BinarySearchTree( NodeOfTree* p, int k )
 		p->rightNode->parentNode = p;
 
 	}
-	CalculatingHeight( p );
+//	CalculatingHeight( p );
 	return BalanceNodeInAVL_BinarySearchTree( p );
 }
 
